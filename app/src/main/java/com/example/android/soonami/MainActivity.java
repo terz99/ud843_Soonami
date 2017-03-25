@@ -41,12 +41,15 @@ import java.text.SimpleDateFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
+    // Tag for the successful HTTP response
+    private static final int SUCCESSFUL_HTTP_RESPONSE = 200;
+
     /** Tag for the log messages */
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     /** URL to query the USGS dataset for earthquake information */
     private static final String USGS_REQUEST_URL =
-            "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-12-01&minmagnitude=7";
+            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-12-01&minmagnitude=7";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // If the request was successful (response code 200),
                 // then read the input stream and parse the response.
-                if (urlConnection.getResponseCode() == 200) {
+                if (urlConnection.getResponseCode() == SUCCESSFUL_HTTP_RESPONSE) {
                     inputStream = urlConnection.getInputStream();
                     jsonResponse = readFromStream(inputStream);
                 } else {
